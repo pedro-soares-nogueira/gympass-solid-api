@@ -2,6 +2,8 @@
 
 ```bash
 docker compose up -d
-# and
+```
+
+```bash
 docker compose stop
 ```
