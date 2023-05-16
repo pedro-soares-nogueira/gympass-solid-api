@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, test } from "vitest"
+import { beforeEach, describe, expect, it } from "vitest"
 import { RegisterUseCase } from "./register"
 import { compare } from "bcryptjs"
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository"
@@ -12,6 +12,7 @@ describe("Register Use Case", () => {
     usersRepository = new InMemoryUsersRepository()
     sut = new RegisterUseCase(usersRepository)
   })
+
   it("shoud be abla to register", async () => {
     const { user } = await sut.execute({
       name: "John Doe",

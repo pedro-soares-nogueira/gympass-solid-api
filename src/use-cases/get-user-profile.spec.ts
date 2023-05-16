@@ -1,14 +1,13 @@
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository"
-import { describe } from "node:test"
-import { beforeEach, expect, it } from "vitest"
-import { GetUserProfileUseCase } from "./get-user-profile"
+import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error"
+import { GetUserProfileUseCase } from "@/use-cases/get-user-profile"
 import { hash } from "bcryptjs"
-import { ResourceNotFountError } from "./errors/resource-not-found-error"
+import { expect, describe, it, beforeEach } from "vitest"
 
 let usersRepository: InMemoryUsersRepository
 let sut: GetUserProfileUseCase
 
-describe("Get user profile use case", () => {
+describe("Get User Profile Use Case", () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
     sut = new GetUserProfileUseCase(usersRepository)
@@ -33,6 +32,6 @@ describe("Get user profile use case", () => {
       sut.execute({
         userId: "non-existing-id",
       })
-    ).rejects.toBeInstanceOf(ResourceNotFountError)
+    ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 })

@@ -1,6 +1,6 @@
 import { UsersRepository } from "@/repositories/users-repository"
 import { User } from "@prisma/client"
-import { ResourceNotFountError } from "./errors/resource-not-found-error"
+import { ResourceNotFoundError } from "./errors/resource-not-found-error"
 
 interface GetUserProfileUseCaseRequest {
   userId: string
@@ -18,7 +18,7 @@ export class GetUserProfileUseCase {
     const user = await this.usersRepository.findById(userId)
 
     if (!user) {
-      throw new ResourceNotFountError()
+      throw new ResourceNotFoundError()
     }
 
     return { user }
