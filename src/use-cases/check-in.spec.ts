@@ -2,27 +2,27 @@ import { CheckIn } from "@prisma/client"
 import { InMemoryCheckInsRepository } from "@/repositories/in-memory/in-memory-check-ins-repository"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
 import { CheckInUseCase } from "./check-in"
-import { ImMemoryGymsRepository } from "@/repositories/in-memory/in-memory-gyms-repository"
+import { InMemoryGymsRepository } from "@/repositories/in-memory/in-memory-gyms-repository"
 import { Decimal } from "@prisma/client/runtime/library"
 
 let checkInsRepository: InMemoryCheckInsRepository
-let gymsRepository: ImMemoryGymsRepository
+let gymsRepository: InMemoryGymsRepository
 let sut: CheckInUseCase
 
 describe("Check In Use Case", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     checkInsRepository = new InMemoryCheckInsRepository()
-    gymsRepository = new ImMemoryGymsRepository()
+    gymsRepository = new InMemoryGymsRepository()
 
     sut = new CheckInUseCase(checkInsRepository, gymsRepository)
 
-    gymsRepository.items.push({
+    await gymsRepository.create({
       id: "gym-01",
       title: "JavaScript",
       description: "JavaScript",
       phone: "",
-      latitude: new Decimal(21.2259943),
-      longitude: new Decimal(50.4411536),
+      latitude: 21.2259943,
+      longitude: 50.4411536,
     })
 
     vi.useFakeTimers()
